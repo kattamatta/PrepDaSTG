@@ -1,6 +1,6 @@
 **PrepDaSTG** is an R package that facilitates pre-processing of research data assessed by the AE17 team.
 The package provides:
-- renaming column names with semantically meaningful variable names of research data. Schemes of recoding are provided within the package for each participant group (children, students, caregivers, twins, teachers, head teachers). These schemes are valid for the specific participant group between countries (Ghana, Tanzania, Uganda).
+- renaming column names with semantically meaningful variable names of research data. Schemes of recoding are provided within the package for each participant group (children, students, caregivers, twins, teachers, head teachers). These schemes are valid for the specific participant group between countries (Ghana, Tanzania, Uganda, Haiti).
 - conducting quality control of participants codes that follow a specific scheme specified a-priori by the AE17 research group. It returns information which code differs how from the predefined coding scheme. The scheme is defined in the function. 
 - functions for the data import of required data as well as data export of data with renamed column names as well as quality control results.
 
