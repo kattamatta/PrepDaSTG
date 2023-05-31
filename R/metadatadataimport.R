@@ -1,9 +1,9 @@
 #' import data
 #'
-#' @description import of data set with raw unprocessed assessment data (only .csv with , as separator) and an optional meta data set (.csv with ; as separator or .xls)of the respective STG survey
+#' @description import of data set with raw unprocessed assessment data (only .csv with , as separator) and an optional meta data set (.csv with ; as separator or .xls) of the respective survey
 #'
 #' @param path_data name of the file with assessment data, can include absolute path
-#' @param path_metadata optional file name with absolute path with meta data of STG export - not for data aggregation!
+#' @param path_metadata optional file name with absolute path with meta data - not for data aggregation!
 #'
 #' @return one or two data frames of imported data
 #' @export

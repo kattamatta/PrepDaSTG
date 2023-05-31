@@ -9,11 +9,11 @@ metadata.import(path_data, path_metadata)
 \arguments{
 \item{path_data}{name of the file with assessment data, can include absolute path}
 
-\item{path_metadata}{optional file name with absolute path with meta data of STG export - not for data aggregation!}
+\item{path_metadata}{optional file name with absolute path with meta data - not for data aggregation!}
 }
 \value{
 one or two data frames of imported data
 }
 \description{
-import of data set with raw unprocessed assessment data (only .csv with , as separator) and an optional meta data set (.csv with ; as separator or .xls)of the respective STG survey
+import of data set with raw unprocessed assessment data (only .csv with , as separator) and an optional meta data set (.csv with ; as separator or .xls) of the respective survey
 }

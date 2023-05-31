@@ -16,11 +16,11 @@ metadata.convert(
 )
 }
 \arguments{
-\item{metadata}{data set containing STG exported meta data to be renamed}
+\item{metadata}{data set containing exported meta data to be renamed}
 
-\item{data}{data set containing STG exported assessment data}
+\item{data}{data set containing exported assessment data}
 
-\item{subject}{data set with STG exported variable names of data sets and how to be renamed}
+\item{subject}{data set with exported variable names of data sets and how to be renamed}
 
 \item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".}
 
@@ -31,8 +31,8 @@ metadata.convert(
 \item{path}{optional. absolute path where returned data set should be stored}
 }
 \value{
-data set with renamed STG meta data
+data set with renamed meta data
 }
 \description{
-convert meta data exported from STG to useful meta data set for renaming variable names in STG data sets (not used for data aggregation!)
+convert meta data to useful meta data set for renaming variable names in assessment data sets (not used for data aggregation!)
 }

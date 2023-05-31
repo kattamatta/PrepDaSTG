@@ -1,16 +1,16 @@
 #' convert metadata
 #'
-#' @description convert meta data exported from STG to useful meta data set for renaming variable names in STG data sets (not used for data aggregation!)
+#' @description convert meta data to useful meta data set for renaming variable names in assessment data sets (not used for data aggregation!)
 #'
-#' @param metadata data set containing STG exported meta data to be renamed
-#' @param data data set containing STG exported assessment data
-#' @param subject data set with STG exported variable names of data sets and how to be renamed
+#' @param metadata data set containing exported meta data to be renamed
+#' @param data data set containing exported assessment data
+#' @param subject data set with exported variable names of data sets and how to be renamed
 #' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
 #' @param time character indicating of assessment period. Must be one of "baseline", "follow-up 1", or "follow-up 2".
 #' @param save logical. If TRUE returned data set will be saved as .csv
 #' @param path optional. absolute path where returned data set should be stored
 #'
-#' @return data set with renamed STG meta data
+#' @return data set with renamed meta data
 #' @export
 
 metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", "TwinCaregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"), time = c("baseline", "follow-up 1", "follow-up 2"), save, path) {
@@ -42,6 +42,11 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
     data("ItemCatalogHeadTeachersFollowUp1")
     rename <- ItemCatalogHeadTeachersFU1
     remove(ItemCatalogHeadTeachersFU1, envir = .GlobalEnv)
+  }
+  if(subject == "HeadTeachers" & time == "baseline" & country == "Haiti"){
+    data("ItemCatalogHeadTeachersHaiti")
+    rename <- ItemCatalogHeadSchoolHaiti
+    remove(ItemCatalogHeadSchoolHaiti, envir = .GlobalEnv)
   }
   if(subject == "NumeracyLiteracy" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogNumeracyLiteracy")
@@ -115,14 +120,38 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
   else{
   }
   metadata$Entrance.Rule <- sub("Answer", "Q_", metadata$Entrance.Rule)
-  metadata$Question.Index_long <- ifelse(metadata$Is.Topic == "TRUE", paste((sub("^","T_Q_",metadata$Question.Index)), metadata$Text, sep = "_"), ifelse(metadata$Is.Topic == "FALSE", paste((sub("^","A_Q_",metadata$Question.Index)), metadata$Text, sep = "_"),     metadata$Question.Index))
-  metadata$Question.Index_long <- ifelse(is.na(metadata$Is.Topic) == TRUE, paste((sub("^","Q_",metadata$Question.Index)), metadata$Text, sep = "_"), metadata$Question.Index_long)
-  metadata$Question.Index_short <- ifelse(metadata$Is.Topic == "TRUE", paste(paste(sub("^","T_Q_",metadata$Question.Index)), metadata$Index, sep = "_"), NA)
-  metadata$Question.Index_short <- ifelse(is.na(metadata$Is.Topic) == TRUE, paste(sub("^","Q_",metadata$Question.Index)), metadata$Question.Index_short)
-  metadata$Question.Index_long <- ifelse(is.na(metadata$Index) & is.na(metadata$Is.Topic), paste(paste(paste((sub("^","Q_",metadata$Question.Index)), "Entrance.Rule" , sep = "_"), metadata$Entrance.Rule, sep = "_"), metadata$Text, sep = "_"), metadata$Question.Index_long)
+  metadata$Question.Index_long <- ifelse(metadata$Is.Topic == "TRUE", 
+                                         paste((sub("^","T_Q_",metadata$Question.Index)), metadata$Text, sep = "_"), 
+                                         ifelse(metadata$Is.Topic == "FALSE", 
+                                                paste((sub("^","A_Q_",metadata$Question.Index)), metadata$Text, sep = "_"), 
+                                                metadata$Question.Index))
+  metadata$Question.Index_long <- ifelse(is.na(metadata$Is.Topic) == TRUE, 
+                                         paste((sub("^","Q_",metadata$Question.Index)), metadata$Text, sep = "_"), 
+                                         metadata$Question.Index_long)
+  metadata$Question.Index_short <- ifelse(metadata$Is.Topic == "TRUE", 
+                                          paste(paste(sub("^","T_Q_",metadata$Question.Index)), metadata$Index, sep = "_"), 
+                                          NA)
+  metadata$Question.Index_short <- ifelse(is.na(metadata$Is.Topic) == TRUE, 
+                                          paste(sub("^","Q_",metadata$Question.Index)), 
+                                          metadata$Question.Index_short)
+  metadata$Question.Index_long <- ifelse(is.na(metadata$Index) & is.na(metadata$Is.Topic), 
+                                         paste(
+                                           paste(
+                                             paste((sub("^","Q_",metadata$Question.Index)), "Entrance.Rule" , sep = "_"), 
+                                           metadata$Entrance.Rule, sep = "_"), 
+                                          metadata$Text, sep = "_"), 
+                                         metadata$Question.Index_long)
   metadata <- metadata[metadata$Question.Index_long != "NA_Entrance.Rule_NA_NA", ]
   metadata$DataVariableName <- rename$NewName[match(metadata$Question.Index_short, rename$STGexportName)]
-  metadata$DataVariableName <- ifelse(time == "baseline" & is.na(metadata$DataVariableName) == FALSE, sub("^", "BA_", metadata$DataVariableName), ifelse(time == "follow-up 1" & is.na(metadata$DataVariableName) == FALSE, sub("^", "FU1_", metadata$DataVariableName), ifelse(time == "follow-up 2" & is.na(metadata$DataVariableName) == FALSE, sub("^", "FU2_", metadata$DataVariableName), NA)))
+  metadata$DataVariableName <- ifelse(time == "baseline" & is.na(metadata$DataVariableName) == FALSE, 
+                                      sub("^", "BA_", metadata$DataVariableName), 
+                                      ifelse(time == "follow-up 1" & is.na(metadata$DataVariableName) == FALSE, 
+                                             sub("^", "FU1_", metadata$DataVariableName), 
+                                             ifelse(time == "follow-up 2" & is.na(metadata$DataVariableName) == FALSE, 
+                                                    sub("^", "FU2_", metadata$DataVariableName), 
+                                                    NA)
+                                             )
+                                      )
   metadata_renamed <- metadata |> relocate(c(DataVariableName, Question.Index_short, Question.Index_long), .before = Chapter.Index)
   metadata_renamed$Question.Index_long <- gsub("_NA_", "_", metadata_renamed$Question.Index_long)
   assign("Metadata_renamed", metadata_renamed, value = , envir = .GlobalEnv)
