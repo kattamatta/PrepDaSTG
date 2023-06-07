@@ -90,14 +90,15 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
   }
   if(subject == "Teachers" & time == "follow-up 1" & country != "Haiti"){
     data("ItemCatalogTeachersFollowUp1")
-    rename <- ItemCatalogTeachersFU1
-    remove(ItemCatalogTeachersFU1, envir = .GlobalEnv)
+    rename <- ItemCatalogInterviewTeacherFU1
+    remove(ItemCatalogInterviewTeacherFU1, envir = .GlobalEnv)
   }
   if(subject == "TwinCaregivers" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogTwinCaregivers")
     rename <- ItemCatalogTwinCaregivers
     remove(ItemCatalogTwinCaregivers, envir = .GlobalEnv)
   }
+  rename2 <- rename
   metadata$Text <- gsub("<.*?>", "", metadata$Text)
   metadata$Text <- ifelse(grepl(metadata$Text, pattern = "&nbsp;"), gsub('&nbsp;', ' ', metadata$Text), metadata$Text)
   if(any(grepl(colnames(data), pattern = "A_Q_"))==TRUE){
@@ -116,6 +117,7 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
     metadata <- rbind(metadata, df_tmp)
     metadata <- metadata[order(as.numeric(metadata$Question.Index)),]
     colnames(data) <- sub('A_Q', 'T_Q', colnames(data))
+    rename$STGexportName <- sub('A_Q', 'T_Q', rename$STGexportName)
   }
   else{
   }
@@ -143,6 +145,9 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
                                          metadata$Question.Index_long)
   metadata <- metadata[metadata$Question.Index_long != "NA_Entrance.Rule_NA_NA", ]
   metadata$DataVariableName <- rename$NewName[match(metadata$Question.Index_short, rename$STGexportName)]
+  `%nin%` <- Negate(`%in%`)
+  metadata$Question.Index_long <- ifelse((metadata$Question.Index_short %nin% rename2$STGexportName & metadata$DataVariableName %in% rename2$NewName) == TRUE, sub("T_Q_", "A_Q_", metadata$Question.Index_long), metadata$Question.Index_long)
+  metadata$Question.Index_short <- ifelse((metadata$Question.Index_short %nin% rename2$STGexportName & metadata$DataVariableName %in% rename2$NewName) == TRUE, sub("T_Q_", "A_Q_", metadata$Question.Index_short), metadata$Question.Index_short)
   metadata$DataVariableName <- ifelse(time == "baseline" & is.na(metadata$DataVariableName) == FALSE, 
                                       sub("^", "BA_", metadata$DataVariableName), 
                                       ifelse(time == "follow-up 1" & is.na(metadata$DataVariableName) == FALSE, 

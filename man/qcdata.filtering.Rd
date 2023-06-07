@@ -21,7 +21,7 @@ qcdata.filtering(
 
 \item{level2}{logical to indicate data frame holds level 2 data. If TRUE school code instead of participant code will be quality controlled. If TRUE no @param code needed.}
 
-\item{code}{character of variable in data frame that hold participants codes - note for numeracy & literacy data: pnl_code & snl_code to to be converted in _code as the following STG_data_renamed$BA_code <- ifelse(STG_data_renamed$BA_pnl_code == "", STG_data_renamed$BA_snl_code, STG_data_renamed$BA_pnl_code) before hand!}
+\item{code}{character of variable in data frame that hold participants codes - note for numeracy & literacy data: pnl_code & snl_code to to be converted in code as the following data$code <- ifelse(data$pnl_code == "", data$snl_code, data$pnl_code) before hand!}
 
 \item{code_cg}{character of variable in data frame holding caregivers code - only for twin combinde data set. Has to be specified when @param person = Caregivers}
 

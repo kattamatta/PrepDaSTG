@@ -42,6 +42,11 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     rename <- ItemCatalogHeadTeachersFU1
     remove(ItemCatalogHeadTeachersFU1, envir = .GlobalEnv)
   }
+  if(subject == "HeadTeachers" & time == "baseline" & country == "Haiti"){
+    data("ItemCatalogHeadTeachersHaiti")
+    rename <- ItemCatalogHeadSchoolHaiti
+    remove(ItemCatalogHeadSchoolHaiti, envir = .GlobalEnv)
+  }
   if(subject == "NumeracyLiteracy" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogHeadNumeracyLiteracy")
     rename <- data("ItemCatalogNumeracyLiteracy")
@@ -50,7 +55,12 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
   if(subject == "NumeracyLiteracy" & time == "follow-up 1" & country != "Haiti"){
     data("ItemCatalogNumeracyLiteracyFollowUp1")
     rename <- ItemCatalogNumeracyLiteracyFU1
-    remove(ItemCatalogNumeracyLiteracy, envir = .GlobalEnv)
+    remove(ItemCatalogNumeracyLiteracyFU1, envir = .GlobalEnv)
+  }
+  if(subject == "NumeracyLiteracy" & time == "baseline" & country == "Haiti"){
+    data("ItemCatalogNumeracyLiteracyHaiti")
+    rename <- ItemCatalogNumeracyLiteracyHaiti
+    remove(ItemCatalogNumeracyLiteracyHaiti, envir = .GlobalEnv)
   }
   if(subject == "Students" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogStudents")
@@ -79,8 +89,8 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
   }
   if(subject == "Teachers" & time == "follow-up 1" & country != "Haiti"){
     data("ItemCatalogTeachersFollowUp1")
-    rename <- ItemCatalogTeachersFU1
-    remove(ItemCatalogTeachersFU1, envir = .GlobalEnv)
+    rename <- ItemCatalogInterviewTeacherFU1
+    remove(ItemCatalogInterviewTeacherFU1, envir = .GlobalEnv)
   }
   if(subject == "TwinCaregivers" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogTwinCaregivers")
@@ -90,13 +100,16 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
   rename$STGexportName <- sub('A_Q', 'T_Q', rename$STGexportName)
   iconv(colnames(data), from = "utf8", to = "ASCII//TRANSLIT")
   rename$NewName <- if(time == "baseline"){
-    sub("^", "BA_", rename$NewName)
-  }
-  else if(time == "follow-up 1"){
-    sub("^", "FU1_", rename$NewName)
-  }
-  else {
-    sub("^", "FU2_", rename$NewName)
+                      sub("^", "BA_", rename$NewName)
+                    }
+                    else if(time == "follow-up 1"){
+                          sub("^", "FU1_", rename$NewName)
+                         }
+                        else {
+                        sub("^", "FU2_", rename$NewName)
+                        }
+  if(time == "follow-up 1"){
+   names(data) <- sub("_F1", "", names(data))
   }
   names <- data.frame("var" = rename$STGexportName,
                       "var_new"= rename$NewName)

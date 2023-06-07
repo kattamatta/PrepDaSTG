@@ -4,7 +4,7 @@
 #'
 #' @param data data frame containing variables of participants' codes for quality control
 #' @param level2 logical to indicate data frame holds level 2 data. If TRUE school code instead of participant code will be quality controlled. If TRUE no @param code needed.
-#' @param code character of variable in data frame that hold participants codes - note for numeracy & literacy data: pnl_code & snl_code to to be converted in _code as the following STG_data_renamed$BA_code <- ifelse(STG_data_renamed$BA_pnl_code == "", STG_data_renamed$BA_snl_code, STG_data_renamed$BA_pnl_code) before hand!
+#' @param code character of variable in data frame that hold participants codes - note for numeracy & literacy data: pnl_code & snl_code to to be converted in code as the following data$code <- ifelse(data$pnl_code == "", data$snl_code, data$pnl_code) before hand!
 #' @param code_cg character of variable in data frame holding caregivers code - only for twin combinde data set. Has to be specified when @param person = Caregivers
 #' @param school character of variable in data frame holding school code
 #' @param person character specifying the person participants code belongs to. Must be one of "Teacher", "Child", "Mother", or "Caregivers".
