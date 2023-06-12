@@ -21,7 +21,7 @@ STGvariables.rename(
 
 \item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".}
 
-\item{time}{character indicating assessment occasion. Must be one of "baseline", "follow-up 1", or "follow-up 2".}
+\item{time}{character indicating assessment occasion. Must be one of "baseline", "follow-up 1", or "follow-up 2"}
 
 \item{save}{logical. If TRUE returned data set will be saved as .csv}
 
