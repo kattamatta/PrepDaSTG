@@ -5,7 +5,7 @@
 #' @param data file with STG exported data with column names to be renamed to variable names based on renaming file
 #' @param subject character indicating participant group or interview format. Must be one of "Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", or "TwinCaregivers".
 #' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
-#' @param time character indicating assessment occasion. Must be one of "baseline", "follow-up 1", or "follow-up 2".
+#' @param time character indicating assessment occasion. Must be one of "baseline", "follow-up 1", or "follow-up 2"
 #' @param save logical. If TRUE returned data set will be saved as .csv
 #' @param path optional. absolute path where returned data set should be stored
 #'
