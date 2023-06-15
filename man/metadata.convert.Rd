@@ -20,7 +20,7 @@ metadata.convert(
 
 \item{data}{data set containing exported assessment data}
 
-\item{subject}{data set with exported variable names of data sets and how to be renamed}
+\item{subject}{character indicating participant group or interview format. Must be one of "Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", or "TwinCaregivers".}
 
 \item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".}
 

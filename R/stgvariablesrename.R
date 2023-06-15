@@ -48,7 +48,7 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     remove(ItemCatalogHeadSchoolHaiti, envir = .GlobalEnv)
   }
   if(subject == "NumeracyLiteracy" & time == "baseline" & country != "Haiti"){
-    data("ItemCatalogHeadNumeracyLiteracy")
+    data("ItemCatalogNumeracyLiteracy")
     rename <- data("ItemCatalogNumeracyLiteracy")
     remove(ItemCatalogNumeracyLiteracy, envir = .GlobalEnv)
   }
