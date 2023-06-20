@@ -8,12 +8,12 @@
 #' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
 #' @param time character indicating of assessment period. Must be one of "baseline", "follow-up 1", or "follow-up 2".
 #' @param save logical. If TRUE returned data set will be saved as .csv
-#' @param path optional. absolute path where returned data set should be stored
+#' @param file optional. absolute path including file name and appendix .csv in "" where returned data set should be stored
 #'
 #' @return data set with renamed meta data
 #' @export
 
-metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", "TwinCaregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"), time = c("baseline", "follow-up 1", "follow-up 2"), save, path) {
+metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", "TwinCaregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"), time = c("baseline", "follow-up 1", "follow-up 2"), save, file) {
   time <- match.arg(time)
   subject <- match.arg(subject)
   country <- match.arg(country)
@@ -162,8 +162,8 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
   assign("Metadata_renamed", metadata_renamed, value = , envir = .GlobalEnv)
   #remove(rename, envir = .GlobalEnv)
   if (save == "TRUE"){
-    filename <- paste("Metadata_renamed", ".csv", sep = "")
-    file <- paste(path, filename, sep = "/")
+    #filename <- paste("Metadata_renamed", ".csv", sep = "")
+    file <- paste(file)
     utils::write.csv2(Metadata_renamed, file = file, row.names = FALSE)
   } else {
   }

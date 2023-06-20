@@ -13,7 +13,7 @@ qcdata.filtering(
   person = c("Teacher", "Child", "Mother", "Father", "Caregivers"),
   country = c("Ghana", "Tanzania", "Uganda", "Haiti"),
   save,
-  path
+  file
 )
 }
 \arguments{
@@ -33,7 +33,7 @@ qcdata.filtering(
 
 \item{save}{logical. If TRUE returned data frame will be saved as .csv with ; separation}
 
-\item{path}{absolute path where returned data frame should be stored.}
+\item{file}{optional. absolute path including file name and appendix .csv in "" where returned data set should be stored}
 }
 \value{
 data frame of participant codes not matching required participant coding scheme with all variables plus added "pattern" column holding information on discrepancy between participant code scheme and required scheme

@@ -7,12 +7,12 @@
 #' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
 #' @param time character indicating assessment occasion. Must be one of "baseline", "follow-up 1", or "follow-up 2"
 #' @param save logical. If TRUE returned data set will be saved as .csv
-#' @param path optional. absolute path where returned data set should be stored
+#' @param file optional. absolute path including file name and appendix .csv in "" where returned data set should be stored
 #'
 #' @return data set with STG exported data with renamed column names based on renaming file
 #' @export
 
-STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", "TwinCaregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"), time = c("baseline", "follow-up 1", "follow-up 2"), save, path) {
+STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", "TwinCaregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"), time = c("baseline", "follow-up 1", "follow-up 2"), save, file) {
   colnames(data) <- sub('A_Q', 'T_Q', colnames(data))
   time <- match.arg(time)
   subject <- match.arg(subject)
@@ -123,8 +123,8 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     print("error")
   }
   if (save == "TRUE"){
-    filename <- paste("STG_data_renamed", ".csv", sep = "")
-    file <- paste(path, filename, sep = "/")
+    #filename <- paste("STG_data_renamed", ".csv", sep = "")
+    file <- paste(file)
     utils::write.csv2(STG_data_renamed, file = file, row.names = FALSE)
     print("saved")
   } else {

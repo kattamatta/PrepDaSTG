@@ -10,12 +10,12 @@
 #' @param person character specifying the person participants code belongs to. Must be one of "Teacher", "Child", "Mother", or "Caregivers".
 #' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
 #' @param save logical. If TRUE returned data frame will be saved as .csv with ; separation
-#' @param path absolute path where returned data frame should be stored.
+#' @param file optional. absolute path including file name and appendix .csv in "" where returned data set should be stored
 #'
 #' @return data frame of participant codes not matching required participant coding scheme with all variables plus added "pattern" column holding information on discrepancy between participant code scheme and required scheme
 #' @export
 
-qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Teacher", "Child", "Mother", "Father", "Caregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"),  save, path){
+qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Teacher", "Child", "Mother", "Father", "Caregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"),  save, file){
   # duplicate codes
   if (level2 == "TRUE"){
     duplsch <- subset(data[[school]], duplicated(data[[school]]))
@@ -32,8 +32,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       dfduplschS$pat <- NULL
       assign("QCsch", value = dfduplschS, envir = .GlobalEnv)
       if (save == "TRUE"){
-        filename <- paste("QC_school_STGexport", ".csv", sep = "")
-        file <- paste(path, filename, sep = "/")
+        #filename <- paste("QC_school_STGexport", ".csv", sep = "")
+        file <- paste(file)
         utils::write.csv2(QCsch, file = file, row.names = FALSE)
 
       } else {
@@ -367,8 +367,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     dffiltS$pat <- NULL
     assign("QCcodes", value = dffiltS, envir = .GlobalEnv)
     if (save == "TRUE") {
-      filename <- paste("QC_codes_STGexport", ".csv", sep = "")
-      file <- paste(path, filename, sep = "/")
+      #filename <- paste("QC_codes_STGexport", ".csv", sep = "")
+      file <- paste(file)
       utils::write.csv2(QCcodes, file = file, row.names = FALSE)
     } else {
     }

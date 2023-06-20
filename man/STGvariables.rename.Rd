@@ -11,7 +11,7 @@ STGvariables.rename(
   country = c("Ghana", "Tanzania", "Uganda", "Haiti"),
   time = c("baseline", "follow-up 1", "follow-up 2"),
   save,
-  path
+  file
 )
 }
 \arguments{
@@ -25,7 +25,7 @@ STGvariables.rename(
 
 \item{save}{logical. If TRUE returned data set will be saved as .csv}
 
-\item{path}{optional. absolute path where returned data set should be stored}
+\item{file}{optional. absolute path including file name and appendix .csv in "" where returned data set should be stored}
 }
 \value{
 data set with STG exported data with renamed column names based on renaming file
