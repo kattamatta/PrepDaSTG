@@ -33,6 +33,11 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
     rename <- ItemCatalogChildren
     remove(ItemCatalogChildren, envir = .GlobalEnv)
   }
+  if(subject == "Children" & time == "baseline" & country == "Haiti"){
+    data("ItemCatalogChildrenHaiti")
+    rename <- ItemCatalogUSetChildrenHaiti
+    remove(ItemCatalogUSetChildrenHaiti, envir = .GlobalEnv)
+  }
   if(subject == "HeadTeachers" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogHeadTeachers")
     rename <- ItemCatalogHeadTeachers
