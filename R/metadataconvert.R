@@ -59,9 +59,9 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
     remove(ItemCatalogNumeracyLiteracy, envir = .GlobalEnv)
   }
   if(subject == "NumeracyLiteracy" & time == "baseline" & country == "Haiti"){
-    data("ItemCatalogNumeracyLiteracy")
-    rename <- ItemCatalogNumeracyLiteracy
-    remove(ItemCatalogNumeracyLiteracy, envir = .GlobalEnv)
+    data("ItemCatalogNumeracyLiteracyHaiti")
+    rename <- ItemCatalogNumeracyLiteracyHaiti
+    remove(ItemCatalogNumeracyLiteracyHaiti, envir = .GlobalEnv)
   }
   if(subject == "NumeracyLiteracy" & time == "follow-up 1" & country != "Haiti"){
     data("ItemCatalogNumeracyLiteracyFollowUp1")
