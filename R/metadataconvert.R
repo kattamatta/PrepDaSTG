@@ -100,8 +100,8 @@ metadata.convert <- function(metadata, data, subject = c("Caregivers", "Children
   }
   if(subject == "TwinCaregivers" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogTwinCaregivers")
-    rename <- ItemCatalogTwinCaregivers
-    remove(ItemCatalogTwinCaregivers, envir = .GlobalEnv)
+    rename <- ItemCatalogTwinCaregiver
+    remove(ItemCatalogTwinCaregiver, envir = .GlobalEnv)
   }
   rename2 <- rename
   metadata$Text <- gsub("<.*?>", "", metadata$Text)
