@@ -256,12 +256,16 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
 
     ## for caregivers only: match person letter with sex
     if(!missing(code_cg)){
+      if(length(grep(colnames(data), pattern = ".*sex$")) > 0) {
       sex_m_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".*m.*") & data[[grep(colnames(data), pattern = ".*sex$")]] != 1))
       sex_f_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".*f.*") & data[[grep(colnames(data), pattern = ".*sex$")]] != 2))
       sex_cg <- c(sex_m_cg, sex_f_cg)
       dfsex_cg <- data[data[[code_cg]] %in% sex_cg, ]
       dfsex_cg_r <- subset(dfsex_cg, c((grepl(dfsex_cg[[code_cg]], pattern = ".*m.*") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 1))| (grepl(dfsex_cg[[code_cg]], pattern = ".*f.*") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 2))
       dfsex_cg_r$pat <- rep("person letter (caregivers) unequal sex variable", nrow(dfsex_cg_r))
+      }
+        else {
+        }
       } else {
      }
 
@@ -303,8 +307,11 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
         dffilt_c <- dffilt_c[!duplicated(dffilt_c), ]
       } else {
       }
-
+      if(length(grep(colnames(data), pattern = ".*sex$")) > 0) {
       dffilt_cg <- rbind(dfscheme_cg, dfcountry_cg, dflength_cg, dfoO_cg, dfperson_cg, dfcap_cg, dfcountrIndex_cg, dfsex_cg_r)
+      } else {
+        dffilt_cg <- rbind(dfscheme_cg, dfcountry_cg, dflength_cg, dfoO_cg, dfperson_cg, dfcap_cg, dfcountrIndex_cg)
+      }
       duplcode2_cg <- subset(dffilt_cg[[code_cg]], duplicated(dffilt_cg[[code_cg]]))
       if(length(duplcode2_cg) != 0){
         dffilt2_cg <- dffilt_cg[dffilt_cg[[code_cg]] %in% duplcode2_cg, ]
