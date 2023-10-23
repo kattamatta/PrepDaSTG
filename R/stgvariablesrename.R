@@ -99,8 +99,8 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
   }
   if(subject == "TwinCaregivers" & time == "baseline" & country != "Haiti"){
     data("ItemCatalogTwinCaregivers")
-    rename <- ItemCatalogTwinCaregivers
-    remove(ItemCatalogTwinCaregivers, envir = .GlobalEnv)
+    rename <- ItemCatalogTwinCaregiver
+    remove(ItemCatalogTwinCaregiver, envir = .GlobalEnv)
   }
   rename$STGexportName <- sub('A_Q', 'T_Q', rename$STGexportName)
   iconv(colnames(data), from = "utf8", to = "ASCII//TRANSLIT")
