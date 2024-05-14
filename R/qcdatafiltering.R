@@ -139,13 +139,13 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     ## country
     if (missing(code_cg)) {
       country <- if(countrmatch == "Ghana"){
-        subset(data[[code]], !grepl(data[[code]], pattern = "^g.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^g."))
       } else if(countrmatch == "Tanzania"){
-        subset(data[[code]], !grepl(data[[code]], pattern = "^t.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^t."))
       } else if(countrmatch == "Uganda"){
-        subset(data[[code]], !grepl(data[[code]], pattern = "^u.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^u."))
       } else if(countrmatch == "Haiti"){
-        subset(data[[code]], !grepl(data[[code]], pattern = "^h.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^h."))
       } else {
         "NA"
       }
@@ -161,13 +161,13 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       dfcountrIndex <- rbind(dfcountrIndex2l, dfcountrIndex2s)
     } else {
       country <- if (countrmatch == "Ghana") {
-        subset(data[[code]], !grepl(data[[code]], pattern = "^g.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^g."))
       } else if (countrmatch == "Tanzania") {
-        subset(data[[code]], !grepl(data[[code]], pattern = "^t.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^t."))
       } else if (countrmatch == "Uganda") {
-        subset(data[[code]], !grepl(data[[code]], pattern = "^u.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^u."))
       } else if (countrmatch == "Haiti") {
-        subset(data[[code]], !grepl(data[[code]], pattern = "^h.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = "^h."))
       } else {
         "NA"
       }
@@ -184,13 +184,13 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       dfcountrIndex <- rbind(dfcountrIndex2l, dfcountrIndex2s)
 
       country_cg <- if (countrmatch == "Ghana") {
-        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^g.*"))
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^g."))
       } else if (countrmatch == "Tanzania") {
-        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^t.*"))
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^t."))
       } else if (countrmatch == "Uganda") {
-        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^u.*"))
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^u."))
       } else if (countrmatch == "Haiti") {
-        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^h.*"))
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^h."))
       } else {
         "NA"
       }
@@ -220,13 +220,13 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     ## person index
     if(missing(code_cg)){
       person <- if (persmatch == "Teacher") {
-        subset(data[[code]], !grepl(data[[code]], pattern = ".*t.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = ".t."))
       } else if (persmatch == "Child") {
-        subset(data[[code]], !grepl(data[[code]], pattern = ".*c.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = ".c."))
       } else if (persmatch == "Mother") {
-        subset(data[[code]], !grepl(data[[code]], pattern = ".*m.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = ".m."))
       } else if (persmatch == "Father") {
-        subset(data[[code]], !grepl(data[[code]], pattern = ".*f.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = ".f."))
       } else {
         "NA"
       }
@@ -236,7 +236,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
 
     } else {
       person <- if (persmatch == "Caregivers") {
-        subset(data[[code]], !grepl(data[[code]], pattern = ".*c.*"))
+        subset(data[[code]], !grepl(data[[code]], pattern = ".c."))
       } else {
         "NA"
       }
@@ -245,7 +245,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       dfperson$pat <- rep("person letter (child)", nrow(dfperson))
 
       person_cg <- if(persmatch == "Caregivers") {
-        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = ".*m.*|.*f.*"))
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = ".m.|.f."))
       } else {
         "NA"
       }
@@ -257,11 +257,11 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     ## for caregivers only: match person letter with sex
     if(!missing(code_cg)){
       if(length(grep(colnames(data), pattern = ".*sex$")) > 0) {
-      sex_m_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".*m.*") & data[[grep(colnames(data), pattern = ".*sex$")]] != 1))
-      sex_f_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".*f.*") & data[[grep(colnames(data), pattern = ".*sex$")]] != 2))
+      sex_m_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".m.") & data[[grep(colnames(data), pattern = ".*sex$")]] != 1))
+      sex_f_cg <- subset(data[[code_cg]], c(grepl(data[[code_cg]], pattern = ".f.") & data[[grep(colnames(data), pattern = ".*sex$")]] != 2))
       sex_cg <- c(sex_m_cg, sex_f_cg)
       dfsex_cg <- data[data[[code_cg]] %in% sex_cg, ]
-      dfsex_cg_r <- subset(dfsex_cg, c((grepl(dfsex_cg[[code_cg]], pattern = ".*m.*") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 1))| (grepl(dfsex_cg[[code_cg]], pattern = ".*f.*") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 2))
+      dfsex_cg_r <- subset(dfsex_cg, c((grepl(dfsex_cg[[code_cg]], pattern = ".m.") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 1))| (grepl(dfsex_cg[[code_cg]], pattern = ".f.") & dfsex_cg[[grep(colnames(dfsex_cg), pattern = ".*sex$")]] != 2))
       dfsex_cg_r$pat <- rep("person letter (caregivers) unequal sex variable", nrow(dfsex_cg_r))
       }
         else {

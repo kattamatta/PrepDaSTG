@@ -2,6 +2,7 @@
 
 export(STGvariables.rename)
 export(codesccg.diff)
+export(cognitivevariables.rename)
 export(metadata.convert)
 export(metadata.import)
 export(qcdata.filtering)
