@@ -8,14 +8,14 @@
 #' @param code_cg character of variable in data frame holding caregivers code - only for twin combinde data set. Has to be specified when @param person = Caregivers
 #' @param school character of variable in data frame holding school code
 #' @param person character specifying the person participants code belongs to. Must be one of "Teacher", "Child", "Mother", or "Caregivers".
-#' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".
+#' @param country character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", "Haiti" or "Pakistan".
 #' @param save logical. If TRUE returned data frame will be saved as .csv with ; separation
 #' @param file optional. absolute path including file name and appendix .csv in "" where returned data set should be stored
 #'
 #' @return data frame of participant codes not matching required participant coding scheme with all variables plus added "pattern" column holding information on discrepancy between participant code scheme and required scheme
 #' @export
 
-qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Teacher", "Child", "Mother", "Father", "Caregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti"),  save, file){
+qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Teacher", "Child", "Mother", "Father", "Caregivers"), country = c("Ghana", "Tanzania", "Uganda", "Haiti", "Pakistan"),  save, file){
   # duplicate codes
   if (level2 == "TRUE"){
     duplsch <- subset(data[[school]], duplicated(data[[school]]))
@@ -146,6 +146,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
         subset(data[[code]], !grepl(data[[code]], pattern = "^u."))
       } else if(countrmatch == "Haiti"){
         subset(data[[code]], !grepl(data[[code]], pattern = "^h."))
+      } else if(countrmatch == "Pakistan"){
+        subset(data[[code]], !grepl(data[[code]], pattern = "^p."))
       } else {
         "NA"
       }
@@ -168,6 +170,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
         subset(data[[code]], !grepl(data[[code]], pattern = "^u."))
       } else if (countrmatch == "Haiti") {
         subset(data[[code]], !grepl(data[[code]], pattern = "^h."))
+      } else if (countrmatch == "Pakistan") {
+        subset(data[[code]], !grepl(data[[code]], pattern = "^p."))
       } else {
         "NA"
       }
@@ -191,6 +195,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
         subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^u."))
       } else if (countrmatch == "Haiti") {
         subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^h."))
+      } else if (countrmatch == "Pakistan") {
+        subset(data[[code_cg]], !grepl(data[[code_cg]], pattern = "^p."))
       } else {
         "NA"
       }
@@ -213,7 +219,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       data[[school]] <- ifelse(nchar(data[[school]]) == 1, paste("0", data[[school]], sep = ""), data[[school]])
 
       dfcountrIndexunmatch <- subset(data, (((as.character(substr(data[[code]], 2,3))) == data[[school]]) == FALSE))
-      dfcountrIndexunmatch$pat <- rep("country index in code unequal index in school", nrow(dfcountrIndexunmatch))
+      dfcountrIndexunmatch$pat <- rep("school index in code unequal index in school", nrow(dfcountrIndexunmatch)) # used to say "country index in code unequal index in school"
       dfcountrIndex <- rbind(dfcountrIndex, dfcountrIndexunmatch)
     } else {
     }
