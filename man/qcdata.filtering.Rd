@@ -11,7 +11,7 @@ qcdata.filtering(
   code_cg,
   school,
   person = c("Teacher", "Child", "Mother", "Father", "Caregivers"),
-  country = c("Ghana", "Tanzania", "Uganda", "Haiti"),
+  country = c("Ghana", "Tanzania", "Uganda", "Haiti", "Pakistan"),
   save,
   file
 )
@@ -29,7 +29,7 @@ qcdata.filtering(
 
 \item{person}{character specifying the person participants code belongs to. Must be one of "Teacher", "Child", "Mother", or "Caregivers".}
 
-\item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".}
+\item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", "Haiti" or "Pakistan".}
 
 \item{save}{logical. If TRUE returned data frame will be saved as .csv with ; separation}
 
