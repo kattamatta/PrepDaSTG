@@ -26,7 +26,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     } else {
       dfduplsch <- data[data[[school]] %in% duplsch, ]
       dfduplsch$pat <- rep("duplicated school codes", nrow(dfduplsch))
-      keepsch <- colnames(dfduplsch[, grepl(names(dfduplsch), pattern = c("pat|code|SbjNum|Date|Srvyr|Duration|Upload|RvwTime|SrvyrComment|Complete|VStart|VEnd|start|country|phase|intrw|sch|date|schtype|loc|sex|age|relstat|religion|ethn|ac_qual|yrs_t.|mths_t.|yrs_sch.|mths_sch.|hrs_sch|nr_std|nr_std_c|fam|fam_c|bioc|income|otjob"))])
+      keepsch <- colnames(dfduplsch[, grepl(names(dfduplsch), pattern = c("pat|code|SbjNum|Date|Srvyr|Duration|Upload|RvwTime|SrvyrComment|Complete|VStart|VEnd|start|country|phase|intrw|sch|date|schtype|loc|sex|age|relstat|religion|ethn|ac_qual|yrs_t|mths_t|yrs_sch|mths_sch|hrs_sch|nr_std|nr_std_c|fam|fam_c|bioc|income|otjob"))])
       dfduplschS <- subset(dfduplsch, select = keepsch)
       dfduplschS$pattern <- dfduplschS$pat
       dfduplschS$pat <- NULL
