@@ -9,7 +9,7 @@ metadata.convert(
   data,
   subject = c("Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students",
     "Teachers", "TwinCaregivers"),
-  country = c("Ghana", "Tanzania", "Uganda", "Haiti"),
+  country = c("Ghana", "Tanzania", "Uganda", "Haiti", "Pakistan"),
   time = c("baseline", "follow-up 1", "follow-up 2"),
   save,
   file
@@ -22,7 +22,7 @@ metadata.convert(
 
 \item{subject}{character indicating participant group or interview format. Must be one of "Caregivers", "Children", "HeadTeachers", "NumeracyLiteracy", "Students", "Teachers", or "TwinCaregivers".}
 
-\item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", or "Haiti".}
+\item{country}{character specifying the country participant codes were assessed. Must be one of "Ghana", "Tanzania", "Uganda", "Haiti", or "Pakistan".}
 
 \item{time}{character indicating of assessment period. Must be one of "baseline", "follow-up 1", or "follow-up 2".}
 
