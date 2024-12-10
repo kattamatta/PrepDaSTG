@@ -52,6 +52,11 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     rename <- ItemCatalogHeadSchoolHaiti
     remove(ItemCatalogHeadSchoolHaiti, envir = .GlobalEnv)
   }
+  if(subject == "HeadTeachers" & time == "follow-up 1" & country == "Haiti"){
+    data("ItemCatalogHeadTeachersHaitiFollowUp1")
+    rename <- ItemCatalogHeadTeachersHaitiFU1
+    remove(ItemCatalogHeadTeachersHaitiFU1, envir = .GlobalEnv)
+  }
   if(subject == "HeadTeachers" & time == "baseline" & country == "Pakistan"){
     data("ItemCatalogHeadTeachersPakistan")
     rename <- ItemCatalogHeadSchoolPakistan
@@ -71,6 +76,11 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     data("ItemCatalogNumeracyLiteracyHaiti")
     rename <- ItemCatalogNumeracyLiteracyHaiti
     remove(ItemCatalogNumeracyLiteracyHaiti, envir = .GlobalEnv)
+  }
+  if(subject == "NumeracyLiteracy" & time == "follow-up 1" & country == "Haiti"){
+    data("ItemCatalogNumeracyLiteracyHaitiFollowUp1")
+    rename <- ItemCatalogNumeracyLiteracyHaitiFU1
+    remove(ItemCatalogNumeracyLiteracyHaitiFU1, envir = .GlobalEnv)
   }
   if(subject == "Students" & time == "baseline" & country != "Haiti" & country != "Pakistan"){
     data("ItemCatalogStudents")
@@ -92,6 +102,11 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     rename <- ItemCatalogStudentsFU1
     remove(ItemCatalogStudentsFU1, envir = .GlobalEnv)
   }
+  if(subject == "Students" & time == "follow-up 1" & country == "Haiti"){
+    data("ItemCatalogStudentsHaitiFollowUp1")
+    rename <- ItemCatalogStudentsHaitiFU1
+    remove(ItemCatalogStudentsHaitiFU1, envir = .GlobalEnv)
+  }
   if(subject == "Teachers" & time == "baseline" & country != "Haiti" & country != "Pakistan"){
     data("ItemCatalogTeachers")
     rename <- ItemCatalogTeachers
@@ -111,6 +126,11 @@ STGvariables.rename <- function (data, subject = c("Caregivers", "Children", "He
     data("ItemCatalogTeachersFollowUp1")
     rename <- ItemCatalogInterviewTeacherFU1
     remove(ItemCatalogInterviewTeacherFU1, envir = .GlobalEnv)
+  }
+  if(subject == "Teachers" & time == "follow-up 1" & country == "Haiti"){
+    data("ItemCatalogTeachersHaitiFollowUp1")
+    rename <- ItemCatalogTeacherHaitiFU1
+    remove(ItemCatalogTeacherHaitiFU1, envir = .GlobalEnv)
   }
   if(subject == "TwinCaregivers" & time == "baseline" & country != "Haiti" & country != "Pakistan"){
     data("ItemCatalogTwinCaregivers")
