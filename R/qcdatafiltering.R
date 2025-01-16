@@ -285,6 +285,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       } else {
         dffilt2 <- dffilt
       }
+      if(nrow(dffilt2) > 0){ ##
       pattmp <- stats::as.formula(paste(quote(pat), code, sep = " ~ "))
       listtmp <- list(x = pattmp, data = unique(dffilt2), FUN = paste, collapse = ", ")
       dffilt3 <- do.call("aggregate", listtmp)
@@ -297,6 +298,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
       ## add duplicated codes
       dffilt <- rbind(dffilt, dfduplcode)
       dffilt$pat <- sub(":,", ":", dffilt$pat)
+      } ##
     } else {
       dffilt_c <- rbind(dfscheme, dfcountry, dflength, dfoO, dfperson, dfcap, dfcountrIndex)
       duplcode2_c <- subset(dffilt_c[[code]], duplicated(dffilt_c[[code]]))
@@ -373,6 +375,7 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     }
 
     ## shorten data set
+    if(nrow(dffilt) > 0){ ##
     keepvar <- colnames(dffilt[,grepl(names(dffilt), pattern = c("pat|code|SbjNum|Date|Srvyr|Duration|Upload|RvwTime|SrvyrComment|Complete|VStart|VEnd|start|country|phase|intrw|sch|date|schtype|loc|sex|age|relstat|religion|ethn|ac_qual|yrs_t|mths_t|yrs_sch|mths_sch|hrs_sch|nr_std|nr_std_c|fam|fam_c|bioc|income|otjob"))])
 
     dffiltS <- subset(dffilt, select = keepvar)
@@ -386,5 +389,8 @@ qcdata.filtering <- function(data, level2, code, code_cg, school, person = c("Te
     } else {
     }
     print("successfully created data.frame 'QCcodes'")
+  } else { ##
+    print("no false codes") ##
+  }
   }
 }
