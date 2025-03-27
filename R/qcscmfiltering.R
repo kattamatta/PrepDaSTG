@@ -51,12 +51,12 @@ qcscm.filtering <- function(data, save, file){
   
   ## filter mismatiching 4 ditig pattern
   tmp <- data %>%
-    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "o", replacement = "0")) %>%
-    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "\n", replacement = " ")) %>%
-    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "[[:alpha:]]+", replacement = "")) %>%
-    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "[[:punct:]]", replacement = "")) %>%
-    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "777|7777|777777|^0$", replacement = "")) %>%
-    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "\\s\\s+", replacement = " ")) %>%
+    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "o", replacement = "0", USE.NAMES = FALSE)) %>%
+    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "\n", replacement = " ", USE.NAMES = FALSE)) %>%
+    mutate_at(vars(matches("^scm")), ~ sapply(., gsub, pattern = "[[:alpha:]]+", replacement = "", USE.NAMES = FALSE)) %>%
+    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "[[:punct:]]", replacement = "", USE.NAMES = FALSE)) %>%
+    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "777|7777|777777|^0$", replacement = "", USE.NAMES = FALSE)) %>%
+    mutate_at(vars(matches("^scm_")), ~ sapply(., gsub, pattern = "\\s\\s+", replacement = " ", USE.NAMES = FALSE)) %>%
     mutate_at(vars(matches("^scm_")), ~ replace(., is.na(.),""))
   
   tmp <- tmp %>%
@@ -109,7 +109,7 @@ qcscm.filtering <- function(data, save, file){
   ## outlier identifiers
   tmp[is.na(tmp)] <- 0
   tmp[tmp == ""] <- 0
-  tmp <- as.data.frame(lapply(tmp, as.double))
+  tmp <- as.data.frame(lapply(tmp, as.double, USE.NAMES = TRUE))
   tmp[is.na(tmp)] <- 0
   tmp[tmp == 0] <- NA
   
@@ -122,7 +122,7 @@ qcscm.filtering <- function(data, save, file){
     x > threshold_upper | x <  threshold_lower 
   }
   
-  tmp_red2 <- tmp[rowSums(sapply(tmp[, c(2:length(tmp))], IsOutlier), na.rm = TRUE) > 0, ]
+  tmp_red2 <- tmp[rowSums(sapply(tmp[, c(2:length(tmp))], IsOutlier, USE.NAMES = TRUE), na.rm = TRUE) > 0, ]
   dfo <- subset(tmp_red2, select = c("sch", "scm_class_nr_1"))
   dfo$pat <- rep("outlier identifier", nrow(dfo))
   
