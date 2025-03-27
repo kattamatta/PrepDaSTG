@@ -109,7 +109,7 @@ qcscm.filtering <- function(data, save, file){
   ## outlier identifiers
   tmp[is.na(tmp)] <- 0
   tmp[tmp == ""] <- 0
-  tmp <- as.data.frame(lapply(tmp, as.double, USE.NAMES = TRUE))
+  tmp <- as.data.frame(lapply(tmp, as.double, USE.NAMES = FALSE))
   tmp[is.na(tmp)] <- 0
   tmp[tmp == 0] <- NA
   
@@ -122,7 +122,7 @@ qcscm.filtering <- function(data, save, file){
     x > threshold_upper | x <  threshold_lower 
   }
   
-  tmp_red2 <- tmp[rowSums(sapply(tmp[, c(2:length(tmp))], IsOutlier, USE.NAMES = TRUE), na.rm = TRUE) > 0, ]
+  tmp_red2 <- tmp[rowSums(sapply(tmp[, c(2:length(tmp))], IsOutlier, USE.NAMES = FALSE), na.rm = TRUE) > 0, ]
   dfo <- subset(tmp_red2, select = c("sch", "scm_class_nr_1"))
   dfo$pat <- rep("outlier identifier", nrow(dfo))
   
