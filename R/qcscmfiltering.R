@@ -106,6 +106,105 @@ qcscm.filtering <- function(data, save, file){
   dfd <- subset(tmp_red, select = c("sch", "scm_class_nr_1"))
   dfd$pat <- rep("no 4-ditig pattern", nrow(dfd))
   
+  ## duplicates within group
+  dfdiown <- tmp[, grepl("sch|scm_class_nr_1|scm_owngrp_*", names(tmp))]
+  dfdiown <- dfdiown[!duplicated(dfdiown[c(1:2)]),]
+  dfdiown$scm_class_nr_1_rep <- dfdiown$scm_class_nr_1
+  dfdiown <- dfdiown %>%
+    gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+    group_by(sch, scm_class_nr_1) %>%
+    count(value) %>% 
+    ungroup() 
+ dfdiown <- dfdiown[!is.na(dfdiown$value),]
+ dfdiown <- dfdiown[dfdiown$n > 1,]
+ dfdiown$pat <- paste0(dfdiown$n, sep = "x same identifier ", dfdiown$value, " in scm_owngrp")
+ dfdiown <- dfdiown[, c(1,2,length(dfdiown))]
+
+ dfdiothgrp1 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp1_*", names(tmp))]
+ dfdiothgrp1 <- dfdiothgrp1[!duplicated(dfdiothgrp1[c(1:2)]),]
+ dfdiothgrp1 <- dfdiothgrp1 %>%
+   gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+   group_by(sch, scm_class_nr_1) %>%
+   count(value) %>% 
+   ungroup() 
+ dfdiothgrp1 <- dfdiothgrp1[!is.na(dfdiothgrp1$value),]
+ dfdiothgrp1 <- dfdiothgrp1[dfdiothgrp1$n > 1,]
+ dfdiothgrp1$pat <- paste0(dfdiothgrp1$n, sep = "x same identifier ", dfdiothgrp1$value, " in scm_othgrp1")
+ dfdiothgrp1 <- dfdiothgrp1[, c(1,2,length(dfdiothgrp1))]
+
+ dfdiothgrp2 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp2_*", names(tmp))]
+ dfdiothgrp2 <- dfdiothgrp2[!duplicated(dfdiothgrp2[c(1:2)]),]
+ dfdiothgrp2 <- dfdiothgrp2 %>%
+   gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+   group_by(sch, scm_class_nr_1) %>%
+   count(value) %>% 
+   ungroup() 
+ dfdiothgrp2 <- dfdiothgrp2[!is.na(dfdiothgrp2$value),]
+ dfdiothgrp2 <- dfdiothgrp2[dfdiothgrp2$n > 1,]
+ dfdiothgrp2$pat <- paste0(dfdiothgrp2$n, sep = "x same identifier ", dfdiothgrp2$value, " in scm_othgrp2")
+ dfdiothgrp2 <- dfdiothgrp2[, c(1,2,length(dfdiothgrp2))]
+
+ dfdiothgrp3 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp3_*", names(tmp))]
+ dfdiothgrp3 <- dfdiothgrp3[!duplicated(dfdiothgrp3[c(1:2)]),]
+ dfdiothgrp3 <- dfdiothgrp3 %>%
+   gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+   group_by(sch, scm_class_nr_1) %>%
+   count(value) %>% 
+   ungroup() 
+ dfdiothgrp3 <- dfdiothgrp3[!is.na(dfdiothgrp3$value),]
+ dfdiothgrp3 <- dfdiothgrp3[dfdiothgrp3$n > 1,]
+ dfdiothgrp3$pat <- paste0(dfdiothgrp3$n, sep = "x same identifier ", dfdiothgrp3$value, " in scm_othgrp3")
+ dfdiothgrp3 <- dfdiothgrp3[, c(1,2,length(dfdiothgrp3))]
+
+ dfdilikemst <- tmp[, grepl("sch|scm_class_nr_1|scm_likemst_*", names(tmp))]
+ dfdilikemst <- dfdilikemst[!duplicated(dfdilikemst[c(1:2)]),]
+ dfdilikemst <- dfdilikemst %>%
+   gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+   group_by(sch, scm_class_nr_1) %>%
+   count(value) %>% 
+   ungroup() 
+ dfdilikemst <- dfdilikemst[!is.na(dfdilikemst$value),]
+ dfdilikemst <- dfdilikemst[dfdilikemst$n > 1,]
+ dfdilikemst$pat <- paste0(dfdilikemst$n, sep = "x same identifier ", dfdilikemst$value, " in scm_likemst")
+ dfdilikemst <- dfdilikemst[, c(1,2,length(dfdilikemst))]
+
+ dfdilikelst <- tmp[, grepl("sch|scm_class_nr_1|scm_likelst_*", names(tmp))]
+ dfdilikelst <- dfdilikelst[!duplicated(dfdilikelst[c(1:2)]),]
+ dfdilikelst <- dfdilikelst %>%
+   gather(question, value, -c(sch, scm_class_nr_1)) %>% 
+   group_by(sch, scm_class_nr_1) %>%
+   count(value) %>% 
+   ungroup() 
+ dfdilikelst <- dfdilikelst[!is.na(dfdilikelst$value),]
+ dfdilikelst <- dfdilikelst[dfdilikelst$n > 1,]
+ dfdilikelst$pat <- paste0(dfdilikelst$n, sep = "x same identifier ", dfdilikelst$value, " in scm_likelst")
+ dfdilikelst <- dfdilikelst[, c(1,2,length(dfdilikelst))]
+  
+  ## > 20 identifiers within group
+ df19own <- tmp[, grepl("sch|scm_class_nr_1|scm_owngrp_*", names(tmp))]
+ df19own <- df19own[(rowSums(!is.na(df19own[c(3:length(df19own))])) > 19) == TRUE, c("sch", "scm_class_nr_1")]
+ df19own$pat <- rep("> 19 identifiers in scm_owngrp", nrow(df19own))
+ 
+ df20othgrp1 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp1_*", names(tmp))]
+ df20othgrp1 <- df20othgrp1[(rowSums(!is.na(df20othgrp1[c(3:length(df20othgrp1))])) > 20) == TRUE, c("sch", "scm_class_nr_1")]
+ df20othgrp1$pat <- rep("> 20 identifiers in scm_othgrp1", nrow(df20othgrp1))
+ 
+ df20othgrp2 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp2_*", names(tmp))]
+ df20othgrp2 <- df20othgrp2[(rowSums(!is.na(df20othgrp2[c(3:length(df20othgrp2))])) > 20) == TRUE, c("sch", "scm_class_nr_1")]
+ df20othgrp2$pat <- rep("> 20 identifiers in scm_othgrp2", nrow(df20othgrp2))
+ 
+ df20othgrp3 <- tmp[, grepl("sch|scm_class_nr_1|scm_othgrp3_*", names(tmp))]
+ df20othgrp3 <- df20othgrp3[(rowSums(!is.na(df20othgrp3[c(3:length(df20othgrp3))])) > 20) == TRUE, c("sch", "scm_class_nr_1")]
+ df20othgrp3$pat <- rep("> 20 identifiers in scm_othgrp3", nrow(df20othgrp3))
+ 
+ df20likemst <- tmp[, grepl("sch|scm_class_nr_1|scm_likemst_*", names(tmp))]
+ df20likemst <- df20likemst[(rowSums(!is.na(df20likemst[c(3:length(df20likemst))])) > 20) == TRUE, c("sch", "scm_class_nr_1")]
+ df20likemst$pat <- rep("> 20 identifiers in scm_likemst", nrow(df20likemst))
+ 
+ df20likelst <- tmp[, grepl("sch|scm_class_nr_1|scm_likelst_*", names(tmp))]
+ df20likelst <- df20likelst[(rowSums(!is.na(df20likelst[c(3:length(df20likelst))])) > 20) == TRUE, c("sch", "scm_class_nr_1")]
+ df20likelst$pat <- rep("> 20 identifiers in scm_likelst", nrow(df20likelst))
+ 
   ## outlier identifiers
   tmp[is.na(tmp)] <- 0
   tmp[tmp == ""] <- 0
@@ -127,7 +226,7 @@ qcscm.filtering <- function(data, save, file){
   dfo$pat <- rep("outlier identifier", nrow(dfo))
   
   ## combine data 
-  df_all <- rbind(dfc, dfna, dfdup, dfd, dfo)
+  df_all <- rbind(dfc, dfna, dfdup, dfd, dfo, dfdiown, dfdiothgrp1, dfdiothgrp2, dfdiothgrp3, dfdilikemst, dfdilikelst, df19own, df20othgrp1, df20othgrp2, df20othgrp3, df20likemst, df20likelst)
   df_all$schclass <- paste(df_all$sch, df_all$scm_class_nr_1)
   duplcode2_c <- subset(df_all$schclass, duplicated(df_all$schclass))
   if(length(duplcode2_c) != 0){
