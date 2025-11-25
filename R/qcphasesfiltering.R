@@ -1,15 +1,15 @@
-#' quality control that filters baseline participant codes not matching participation code & demographic info between assessement phases (BA, FU1)
+#' quality control that filters baseline participant codes not matching participation code & demographic info between assessment phases (BA, FU1)
 #'
-#' @description this function filters cases (rows, baseline participation codes) that do not match participation code & demographic info between assessement phases 
+#' @description this function filters cases (rows, baseline participation codes) that do not match participation code & demographic info between assessment phases 
 #'
 #' @param data data frame 
-#' @param BA_code character of variable in data frame that hold participants codes of Baseline assessement 
-#' @param FU1_code character of variable in data frame that hold participants codes of Follow Up 1 assessement
+#' @param BA_code character of variable in data frame that holds participants codes of Baseline assessment, put character in ""
+#' @param FU1_code character of variable in data frame that holds participants codes of Follow Up 1 assessment, put character in ""
 #' @param person character specifying the person participants code belongs to. Must be one of "Teacher" or "Child"
 #' @param save logical. If TRUE returned data frame will be saved as .csv with ; separation
 #' @param file optional. absolute path including file name and appendix .csv in "" where returned data set should be stored
 #'
-#' @return data frame of baseline participant codes not not matching participation code & demographic info between assessement phases (BA, FU1)
+#' @return data frame of baseline participant codes not not matching participation code & demographic info between assessment phases (BA, FU1)
 #'
 #' @export
 
