@@ -7,7 +7,7 @@
 qcphasesBAFU1FU2.filtering(data, person = c("Teacher", "Child"), save, file)
 }
 \arguments{
-\item{data}{data frame}
+\item{data}{data frame, must include variables "UUID_code"}
 
 \item{person}{character specifying the person participants code belongs to. Must be one of "Teacher" or "Child"}
 
